@@ -3,7 +3,11 @@ package com.credit_suisse.app.config;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import com.credit_suisse.app.bean.InstrumentPriceModifierBean;
 
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 //public class MyWebInitializer implements WebApplicationInitializer {

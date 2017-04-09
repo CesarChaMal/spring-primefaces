@@ -19,6 +19,7 @@ import com.credit_suisse.app.domain.InstrumentPriceModifier;
 @ManagedBean
 @SessionScoped
 public class InstrumentPriceModifierBean {
+	
 	private static final Logger logger = LoggerFactory.getLogger(InstrumentPriceModifierBean.class);
 
 	@Autowired

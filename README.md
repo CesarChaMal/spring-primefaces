@@ -4,12 +4,15 @@ Credit Suisse Trial
 * Maven 3.0
 * Spring 4.1.6.RELEASE
 * H2 1.4.187
+* JSF 2.2.12
+* Primefaces 5.2
+
 
 ###2. To Run this project locally
 ```shell
 $ mvn jetty:run
 ```
-Access ```http://localhost:8080/credit_suisse_trial/```
+Access ```http://localhost:8080/spring-primefaces/index.xhtml```
 
 or run the linux script
 
