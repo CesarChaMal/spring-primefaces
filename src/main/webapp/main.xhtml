@@ -40,10 +40,18 @@
 -->
 							<p:selectOneListbox id="tasksList" value="#{selectOneView.task}"
 								converter="taskConverter" var="t" filter="true"
-								filterMatchMode="contains" class="margin-top20">
+								filterMatchMode="contains" class="margin-top20"
+								update="title description dueDate" onclick="alert(value)">
 
 								<f:selectItems value="#{selectOneView.tasks}" var="task"
-									itemLabel="#{task.title}" itemValue="#{task}" />
+									itemLabel="#{task.title}" itemValue="#{task}" 
+									actionListener="#{selectOneView.task}" 
+									onclick="alert(value)"/>
+
+<!-- 
+								<p:ajax update=":formId:cityField"
+								            listener="#{addAddressesMB.provinceChangeHandler}" />									
+-->
 
 <!-- 
 								<p:column>
@@ -65,7 +73,6 @@
 			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
 -->
 			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom"/>
-			 
 						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
 						            <h:outputText value="Task:" />

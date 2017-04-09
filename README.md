@@ -12,7 +12,7 @@ Credit Suisse Trial
 ```shell
 $ mvn jetty:run
 ```
-Access ```http://localhost:8080/spring-primefaces/index.xhtml```
+Access ```http://localhost:8080/spring-primefaces/main.xhtml```
 
 or run the linux script
 
