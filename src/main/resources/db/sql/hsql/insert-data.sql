@@ -1,4 +1,4 @@
-INSERT INTO INSTRUMENT_PRICE_MODIFIER (id, name, multiplier) VALUES (1, 'INSTRUMENT1', 1.05);
-INSERT INTO INSTRUMENT_PRICE_MODIFIER (id, name, multiplier) VALUES (2, 'INSTRUMENT2', 1.10);
-INSERT INTO INSTRUMENT_PRICE_MODIFIER (id, name, multiplier) VALUES (3, 'INSTRUMENT3', 1.15);
-INSERT INTO INSTRUMENT_PRICE_MODIFIER (id, name, multiplier) VALUES (4, 'INSTRUMENT5', 2);
+INSERT INTO TASK (id, title, description, due_date) VALUES (1, 'task1', 'description of task1', '2017-12-31');
+INSERT INTO TASK (id, title, description, due_date) VALUES (2, 'task2', 'description of task2', '2017-12-31');
+INSERT INTO TASK (id, title, description, due_date) VALUES (3, 'task3', 'description of task3', '2017-12-31');
+INSERT INTO TASK (id, title, description, due_date) VALUES (4, 'task4', 'description of task4', '2017-12-31');

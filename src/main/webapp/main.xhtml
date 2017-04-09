@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+
+		<ui:define name="title">main</ui:define>
+
+		<ui:define name="content">
+
+			<h:form id="formMain">
+<!-- 
+				<p:dataTable var="task"
+					value="#{taskBean.tasks}"
+					widgetVar="taskTable" emptyMessage="No tasks found">
+					<p:column headerText="Title">
+						<h:outputText value="#{task.title}" />
+					</p:column>
+					<p:column headerText="Description">
+						<h:outputText value="#{task.description}" />
+					</p:column>
+					<p:column headerText="Due Date">
+						<h:outputText value="#{task.dueDate}" />
+					</p:column>
+				</p:dataTable>
+-->
+
+				<p:layout>
+					<p:layoutUnit id="leftPanel" position="west">
+
+						<p:panel header="Task List" class="max-width">
+
+<!-- 
+							<p:outputLabel for="tasksList" value="Task List" />
+-->
+							<p:selectOneListbox id="tasksList" value="#{selectOneView.task}"
+								converter="taskConverter" var="t" filter="true"
+								filterMatchMode="contains" class="margin-top20">
+
+								<f:selectItems value="#{selectOneView.tasks}" var="task"
+									itemLabel="#{task.title}" itemValue="#{task}" />
+
+<!-- 
+								<p:column>
+									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" />
+								</p:column>
+-->
+
+								<p:column>
+									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}" />
+								</p:column>
+
+							</p:selectOneListbox>
+							
+<!-- 
+							<p:separator />
+-->
+			 
+<!-- 
+			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
+-->
+			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom"/>
+			 
+						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
+						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
+						            <h:outputText value="Task:" />
+						            <h:outputText value="#{selectOneView.task.toString()}" />
+						        </p:panelGrid>
+						    </p:dialog>
+
+						</p:panel>
+					</p:layoutUnit>
+
+					<p:layoutUnit id="rightPanel" position="center">
+
+						<p:panel header="Task Details" class="max-width">
+
+							<h:panelGrid id="campos" columns="1" class="max-width">
+								<p:outputLabel for="title" value="Task title" class="margin-top20"/>
+								<p:inputText id="title" value="#{task.title}" onblur="value=value.toUpperCase()" class="max-width"></p:inputText>
+
+								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
+							    <p:inputTextarea id="description" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+							    <h:outputText id="displayTextArea" />
+
+								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
+        						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
+
+        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
+							    <p:dialog header="Delete Task" modal="true" showEffect="fade" widgetVar="dlgDeleteTask" resizable="false">
+							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
+							        </p:panelGrid>
+							    </p:dialog>
+							</h:panelGrid>
+
+						</p:panel>
+					</p:layoutUnit>
+
+	    		</p:layout>
+
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>
+
+
