@@ -75,45 +75,6 @@ public class Task {
 		this.due_date = due_date;
 	}
 
-/*	
-	private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
-	@Autowired
-	TaskDao taskDao;
-
-	private FacesContext facesContext;
-
-	private RequestContext requestContext;
-
-	public void setTaskDao(TaskDao taskDao) {
-		this.taskDao = taskDao;
-	}
-
-	public void save() {
-       	facesContext = FacesContext.getCurrentInstance();
-    	Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-    	String title = params.get("title");    	
-    	String description = params.get("description");    	
-    	String due_dateStr = params.get("due_date");    	
-        Date due_date = new Date();
-    	
-    	DateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
-    	try {
-            due_date = formatter.parse(due_dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    	
-    	taskDao.save(title, description, due_date);
-    	this.reset();
-    }
-
-	public void reset() {
-        requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("formMain");
-    }
-*/	
-     
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", title=" + title + ", description=" + description + ", due_date=" + due_date + "]";

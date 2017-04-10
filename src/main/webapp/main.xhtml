@@ -101,7 +101,7 @@
 	        						<p:calendar value="#{task.dueDate}" id="newDueDate"/>
 
 									<p:growl id="saveMessage" showDetail="true"/>
-	        				    	<p:commandButton process="@this" value="Save" action="#{main.save}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+	        				    	<p:commandButton value="Save" action="#{main.save}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 										<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
 										<f:param name="title" value="#{task.title}" />
 										<f:param name="description" value="#{task.description}" />
