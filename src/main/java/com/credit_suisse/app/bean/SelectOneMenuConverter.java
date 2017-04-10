@@ -9,11 +9,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.credit_suisse.app.domain.Task;
-
-/**
- * The Class SelectOneMenuConverter.
- */
 @FacesConverter("selectOneMenuConverter")
 public class SelectOneMenuConverter implements Converter {
  
@@ -26,13 +21,6 @@ public class SelectOneMenuConverter implements Converter {
         return fromSelect(arg1, objectString);
     }
  
-    /**
-     * Serialize.
-     *
-     * @param object
-     *            the object
-     * @return the string
-     */
     private String serialize(final Object object) {
         if (object == null) {
             return null;
@@ -40,15 +28,6 @@ public class SelectOneMenuConverter implements Converter {
         return object.getClass() + "@" + object.hashCode();
     }
  
-    /**
-     * From select.
-     *
-     * @param currentcomponent
-     *            the currentcomponent
-     * @param objectString
-     *            the object string
-     * @return the object
-     */
     private Object fromSelect(final UIComponent currentcomponent, final String objectString) {
  
         if (currentcomponent.getClass() == UISelectItem.class) {
