@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.credit_suisse.app.domain.Task;
+import com.credit_suisse.app.bean.Task;
 
 @Service
 public class TaskDaoImpl implements TaskDao {

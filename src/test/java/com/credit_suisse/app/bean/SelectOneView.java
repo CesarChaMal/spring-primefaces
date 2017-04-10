@@ -4,8 +4,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
-import com.credit_suisse.app.domain.Task;
  
 @ManagedBean
 public class SelectOneView {
@@ -15,7 +13,7 @@ public class SelectOneView {
     private List<Task> tasks;
      
     @ManagedProperty("#{taskBean}")
-    private TaskBean service;
+    private Main service;
      
     @PostConstruct
     public void init() {
@@ -42,7 +40,7 @@ public class SelectOneView {
         return tasks;
     }
  
-    public void setService(TaskBean service) {
+    public void setService(Main service) {
         this.service = service;
     }
 }

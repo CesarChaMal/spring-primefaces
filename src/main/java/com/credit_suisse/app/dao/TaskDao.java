@@ -3,7 +3,7 @@ package com.credit_suisse.app.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.credit_suisse.app.domain.Task;
+import com.credit_suisse.app.bean.Task;
 
 public interface TaskDao {
 

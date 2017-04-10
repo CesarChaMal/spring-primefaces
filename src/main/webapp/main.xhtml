@@ -16,7 +16,7 @@
 			<h:form id="formMain">
 <!-- 
 				<p:dataTable var="task"
-					value="#{taskBean.tasks}"
+					value="#{main.tasks}"
 					widgetVar="taskTable" emptyMessage="No tasks found">
 					<p:column headerText="Title">
 						<h:outputText value="#{task.title}" />
@@ -41,28 +41,28 @@
 						<p:panel id="panel" header="Task List" class="max-width">
 
 <!-- 
-							<p:selectOneMenu id="utilSelector" value="#{taskBean.task}" converter="selectOneMenuConverter">
+							<p:selectOneMenu id="utilSelector" value="#{main.selectedTask}" converter="selectOneMenuConverter">
 							    <f:selectItem itemValue="#{null}" noSelectionOption="true" />
-							    <f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
+							    <f:selectItems value="#{main.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
 								<p:ajax update="title"/>
 							</p:selectOneMenu>
 
 							<p:outputLabel for="tasksList" value="Task List" />
-							<p:selectOneListbox id="tasksList" value="#{selectOneView.task}"
+							<p:selectOneListbox id="tasksList" value="#{selectOneView.selectedTask}"
 								converter="taskConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20"
 								onclick="alert(this.value)">
 								
-							<p:selectOneListbox id="tasksList" value="#{taskBean.task}"
+							<p:selectOneListbox id="tasksList" value="#{main.selectedTask}"
 								converter="taskConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20"
 								onclick="alert(this.value)">
 -->
 							
-							<p:selectOneListbox id="tasksList" value="#{taskBean.task}" converter="selectOneMenuConverter" var="t" filter="true"
+							<p:selectOneListbox id="tasksList" value="#{main.selectedTask}" converter="selectOneMenuConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20">
 
-								<f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
+								<f:selectItems value="#{main.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
 
 <!-- 
 								<p:ajax update="title description dueDate"/>
@@ -88,6 +88,7 @@
 			    			<p:commandButton value="Add task" update="displayAddTask" onclick="PF('dlgAddTask').show()" class="margin-top20 max-width bottom blueGradient"/>
 						    <p:dialog header="Dialog" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
+									
 									<p:outputLabel for="newTitle" value="Task title"/>
 									<p:inputText id="newTitle"></p:inputText>
 
@@ -99,13 +100,14 @@
 									<p:outputLabel for="newDueDate" value="Due date"/>
 	        						<p:calendar id="newDueDate"/>
 
+
 	        				    	<p:commandButton value="Save" update="@([id$=tasksList])"/>
+	        				    	<p:commandButton value="Cancel"/>
 <!-- 
 	        				    	<p:commandButton value="Save">
-	        				    		<p:ajax listener="#{taskBean.tasks}" update="@([id$=tasksList])"/>
+	        				    		<p:ajax listener="#{main.tasks}" update="@([id$=tasksList])"/>
 	        				    	</p:commandButton>
 -->
-	        				    	<p:commandButton value="Cancel"/>
 						        </p:panelGrid>
 						    </p:dialog>
 
@@ -127,12 +129,12 @@
 <!-- 
 								<p:inputText id="title" class="max-width"></p:inputText>
 -->
-								<p:inputText id="title" value="#{taskBean.task.title}" class="max-width"></p:inputText>
+								<p:inputText id="title" value="#{main.selectedTask.title}" class="max-width"></p:inputText>
 
 								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
 <!-- 
 -->
-							    <p:inputTextarea id="description" value="#{taskBean.task.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+							    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
 							    <h:outputText id="displayTextArea" />
 
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
@@ -140,10 +142,10 @@
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
         						<p:calendar id="dueDate" class="max-width"/>
 -->
-        						<p:calendar id="dueDate" value="#{taskBean.task.dueDate}" class="max-width"/>
+        						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
 
 								<p:growl id="message" showDetail="true"/>
-        				    	<p:commandButton process="@this" value="Delete task" actionListener="#{taskBean.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+        				    	<p:commandButton process="@this" value="Delete task" actionListener="#{main.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 									<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
 

@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.credit_suisse.app.bean.TaskBean;
+import com.credit_suisse.app.bean.Main;
 
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 //public class MyWebInitializer implements WebApplicationInitializer {

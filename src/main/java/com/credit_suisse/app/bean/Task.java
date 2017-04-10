@@ -1,7 +1,10 @@
-package com.credit_suisse.app.domain;
+package com.credit_suisse.app.bean;
 
 import java.util.Date;
 
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean(name="task")
 public class Task {
 
 	private int id;

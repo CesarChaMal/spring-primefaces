@@ -20,24 +20,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.credit_suisse.app.dao.TaskDao;
-import com.credit_suisse.app.domain.Task;
 
 @Component
 //@ManagedBean
-@ManagedBean(name="taskBean")
+@ManagedBean(name="main")
 //@ManagedBean(name="taskBean", eager = true)
 //@SessionScoped
 @ApplicationScoped
-public class TaskBean {
+public class Main {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TaskBean.class);
+	private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
 	@Autowired
 	TaskDao taskDao;
 
 	private List<Task> tasks;
 
-	private Task task;
+	private Task selectedTask;
 
 	public void setTaskDao(TaskDao taskDao) {
 		this.taskDao = taskDao;
@@ -51,16 +50,16 @@ public class TaskBean {
 		this.tasks = tasks;
 	}
 
-	public Task getTask() {
-		return task;
+	public Task getSelectedTask() {
+		return selectedTask;
 	}
 
-	public void setTask(Task task) {
-		this.task = task;
+	public void setSelectedTask(Task task) {
+		this.selectedTask = task;
 	}
 
 	public void reset() {
-		this.task = null;
+		this.selectedTask = null;
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.update("formMain");
     }
@@ -82,7 +81,7 @@ public class TaskBean {
     }
 	
     public void delete() {
-    	int id = getTask().getId(); 
+    	int id = getSelectedTask().getId(); 
 		taskDao.deleteById(id);
         addMessage("Deleted", "Task Deleted with id " + id);
         this.refresh();
