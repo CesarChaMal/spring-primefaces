@@ -30,8 +30,8 @@
 				</p:dataTable>
 -->
 
-				<p:layout style="min-width:400px;min-height:200px;">
-					<p:layoutUnit id="leftPanel" position="west" resizable="true" size="100" minSize="40" maxSize="200">
+				<p:layout>
+					<p:layoutUnit id="leftPanel" position="west" resizable="true">
 
 						<p:panel header="Task List" class="max-width">
 
@@ -72,17 +72,9 @@
 <!-- 
 			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
 -->
-			    			<p:commandButton value="Add task" update="displayDeleteTask" oncomplete="PF('dlg1').show()" class="margin-top20 max-width bottom"/>
-			    			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
- 								   <h:outputText value="Resistance to PrimeFaces is futile!" />
-							</p:dialog>
+			    			<p:commandButton value="Add task"  onclick="PF('dlgDeleteTask1').show();"/>
  
-						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
-						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
-						            <h:outputText value="Task:" />
-						            <h:outputText value="#{selectOneView.task.toString()}" />
-						        </p:panelGrid>
-						    </p:dialog>
+
 
 						</p:panel>
  </p:layoutUnit>
@@ -102,11 +94,15 @@
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
 
-        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
+        				    	<p:commandButton value="Delete task" onclick="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
 							    <p:dialog header="Delete Task"  widgetVar="dlgDeleteTask" resizable="false">
 							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
 							        </p:panelGrid>
 							    </p:dialog>
+							 	<p:dialog header="Add Task"  widgetVar="dlgDeleteTask1" >
+							    	<h:outputText value="Resistance to PrimeFaces is futile!" />
+							    </p:dialog>
+
 							</h:panelGrid>
 
 						</p:panel>
