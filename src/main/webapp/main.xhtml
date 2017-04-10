@@ -47,15 +47,19 @@
 								onclick="alert(this.value)">
 								
 -->
-							<p:selectOneListbox id="tasksList" value="#{taskBean.task}"
-								converter="selectOneMenuConverter" var="t" filter="true"
-								filterMatchMode="contains" class="margin-top20"
-								onclick="alert(this.value)">
+							
+							<p:selectOneMenu id="utilSelector" value="#{taskBean.task}" converter="selectOneMenuConverter">
+							    <f:selectItem itemValue="#{null}" noSelectionOption="true" />
+							    <f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
+								<p:ajax update="title"/>
+							</p:selectOneMenu>
 
-								<f:selectItems value="#{taskBean.tasks}" var="task"
-									itemLabel="#{task.title}" itemValue="#{task}"/>
+							<p:selectOneListbox id="tasksList" value="#{taskBean.task}" converter="selectOneMenuConverter" var="t" filter="true"
+								filterMatchMode="contains" class="margin-top20">
 
-								<p:ajax update=":formMain:title"/>
+								<f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
+
+								<p:ajax update="title"/>
 <!-- 
 								<p:column>
 									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" />
@@ -90,7 +94,7 @@
 
 							<h:panelGrid id="campos" columns="1" class="max-width">
 								<p:outputLabel for="title" value="Task title" class="margin-top20"/>
-								<p:inputText id="title" value="#{task.title}" onblur="value=value.toUpperCase()" class="max-width"></p:inputText>
+								<p:inputText id="title" value="#{taskBean.task.title}" onblur="value=value.toUpperCase()" class="max-width"></p:inputText>
 
 								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
 							    <p:inputTextarea id="description" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>

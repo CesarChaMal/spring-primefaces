@@ -83,13 +83,13 @@ public class SelectOneMenuConverter implements Converter {
  
     @Override
     public String getAsString(final FacesContext arg0, final UIComponent arg1, final Object object) {
-        if(object != null) {
-            return String.valueOf(((Task) object).getId());
-        }
-        else {
-            return null;
-        }
-//        return serialize(object);
+//        if(object != null) {
+//            return String.valueOf(((Task) object).getId());
+//        }
+//        else {
+//            return null;
+//        }
+        return serialize(object);
     }
  
 }
