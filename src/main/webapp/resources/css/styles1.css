@@ -45,15 +45,18 @@ a {
 	width: 700px!important;
 	height: 400px!important;
 	*/
+
+	/* 
 	width: 100%!important;
 	height: 450px!important;
+	*/
 }
 
 .ui-layout-unit-content .ui-widget-content {
 	/* 
 	border: 1px solid black;	
 	*/
-	border: 0px;	
+	border: 0px!important;	
 }
 
 #formMain\3A j_idt21 {
@@ -89,10 +92,6 @@ a {
 
 #formMain\3A rightPanel {
 	height: 300px;
-}
-
-.ui-widget-header {
-	background-color: : ;
 }
 
 .ui-widget-header {

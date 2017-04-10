@@ -2,6 +2,7 @@ package com.credit_suisse.app.bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,14 +55,6 @@ public class TaskBean {
 		return task;
 	}
 
-	public Task searchTask(int id) {
-		return this.taskDao.findById(id);
-	}
-	
-	public String searchTask() {
-		return "task";
-	}
-	
 	public void setTask(Task task) {
 		this.task = task;
 	}
@@ -69,7 +62,11 @@ public class TaskBean {
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+        Object o = event.getObject();
+        if (o.equals(null)) {
+        	System.out.println("null");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+        }
     }
      
     public void click() {
@@ -78,8 +75,42 @@ public class TaskBean {
         requestContext.execute("PF('dlg').show()");
     }
 	
-	@PostConstruct
+    public void delete() {
+    	int id = getTask().getId(); 
+		taskDao.deleteById(id);
+        addMessage("Deleted", "Task Deleted with id " + id);
+        this.refresh();
+    }
+     
+    public void refresh() {
+		tasks = taskDao.findAll();
+    }
+    
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    @PostConstruct
     public void setup()  {
+		
+		Task task = new Task();
+		task.setTitle("test task");
+		task.setDescription("test description");
+		task.setDueDate(new Date());
+		
+		taskDao.save(task);
+		taskDao.save("test task 2", "description", new Date());
+		taskDao.save("test task 2", "description2", new Date());
+		
+//		Task foundTask = taskDao.findById(1);
+//		taskDao.delete(foundTask);
+//
+//		taskDao.deleteById(2);
+//		
+//		taskDao.deleteByTitle("task3");
+//		taskDao.deleteByTitle("test task 2");
+		
 		tasks = taskDao.findAll();
 		logger.debug(Arrays.toString(tasks.toArray()));
    }

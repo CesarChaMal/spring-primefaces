@@ -26,7 +26,7 @@ public class TaskConverter implements Converter {
             try {
             	TaskBean service = (TaskBean) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("taskBean");
 //                logger.info("response: " + service.getTasks().get(Integer.parseInt(value)));
-                Task task = service.searchTask(Integer.parseInt(value));
+                Task task = service.getTasks().get(Integer.parseInt(value));
                 return task;
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid task."));

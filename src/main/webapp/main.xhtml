@@ -30,8 +30,13 @@
 				</p:dataTable>
 -->
 
+<!-- 
 				<p:layout>
+-->
+
+<!-- 
 					<p:layoutUnit id="leftPanel" position="west">
+-->
 
 						<p:panel header="Task List" class="max-width">
 
@@ -59,7 +64,11 @@
 
 								<f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
 
+<!-- 
 								<p:ajax update="title description dueDate"/>
+-->
+								<p:ajax update="@([id$=title]) @([id$=description]) @([id$=dueDate])"/>
+
 <!-- 
 								<p:column>
 									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" />
@@ -76,47 +85,84 @@
 							<p:separator />
 -->
 			 
-<!-- 
-			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
--->
-			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom blueGradient"/>
-						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
+			    			<p:commandButton value="Add task" update="displayAddTask" onclick="PF('dlgAddTask').show()" class="margin-top20 max-width bottom blueGradient"/>
+						    <p:dialog header="Dialog" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
+									<p:outputLabel for="newTitle" value="Task title"/>
+									<p:inputText id="newTitle"></p:inputText>
+
+									<p:outputLabel for="newDescription" value="Task description"/>
+								    <p:inputTextarea id="newDescription" rows="10" cols="50" counter="newDisplayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false">
+								    	<h:outputText id="newDisplayTextArea" style="float:right;"/>
+								    </p:inputTextarea>
+
+									<p:outputLabel for="newDueDate" value="Due date"/>
+	        						<p:calendar id="newDueDate"/>
+
+	        				    	<p:commandButton value="Save" update="@([id$=tasksList])"/>
+<!-- 
+	        				    	<p:commandButton value="Save">
+	        				    		<p:ajax listener="#{taskBean.tasks}" update="@([id$=tasksList])"/>
+	        				    	</p:commandButton>
+-->
+	        				    	<p:commandButton value="Cancel"/>
 						        </p:panelGrid>
 						    </p:dialog>
 
 						</p:panel>
-					</p:layoutUnit>
 
+
+<!-- 
+					</p:layoutUnit>
+-->
+
+<!-- 
 					<p:layoutUnit id="rightPanel" position="center">
+-->
 
 						<p:panel header="Task Details" class="max-width">
 
-							<h:panelGrid id="campos" columns="1" class="max-width">
+							<h:panelGrid id="details" columns="1" class="max-width">
 								<p:outputLabel for="title" value="Task title" class="margin-top20"/>
+<!-- 
+								<p:inputText id="title" class="max-width"></p:inputText>
+-->
 								<p:inputText id="title" value="#{taskBean.task.title}" class="max-width"></p:inputText>
 
 								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
+<!-- 
+-->
 							    <p:inputTextarea id="description" value="#{taskBean.task.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
 							    <h:outputText id="displayTextArea" />
 
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
 <!-- 
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
+        						<p:calendar id="dueDate" class="max-width"/>
 -->
         						<p:calendar id="dueDate" value="#{taskBean.task.dueDate}" class="max-width"/>
 
-        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom blueGradient"/>
-							    <p:dialog header="Delete Task" modal="true" showEffect="fade" widgetVar="dlgDeleteTask" resizable="false">
-							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
-							        </p:panelGrid>
-							    </p:dialog>
+								<p:growl id="message" showDetail="true"/>
+        				    	<p:commandButton value="Delete task" actionListener="#{taskBean.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+									<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
+								</p:commandButton>
+
+								<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+									<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+									<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+								</p:confirmDialog>
+
 							</h:panelGrid>
 
 						</p:panel>
-					</p:layoutUnit>
 
+<!-- 
+					</p:layoutUnit>
+-->
+
+<!-- 
 	    		</p:layout>
+-->
 
 			</h:form>
 
