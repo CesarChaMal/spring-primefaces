@@ -30,7 +30,7 @@
 				</p:dataTable>
 -->
 
-				<p:layout style="min-width:800px;min-height:700px;">
+				<p:layout style="min-width:400px;min-height:200px;">
 					<p:layoutUnit id="leftPanel" position="west" resizable="true" size="100" minSize="40" maxSize="200">
 
 						<p:panel header="Task List" class="max-width">
@@ -103,7 +103,7 @@
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
 
         				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
-							    <p:dialog header="Delete Task" modal="true" widgetVar="dlgDeleteTask" resizable="false">
+							    <p:dialog header="Delete Task"  widgetVar="dlgDeleteTask" resizable="false">
 							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
 							        </p:panelGrid>
 							    </p:dialog>
