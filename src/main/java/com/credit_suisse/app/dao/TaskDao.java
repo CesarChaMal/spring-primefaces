@@ -6,7 +6,7 @@ import com.credit_suisse.app.domain.Task;
 
 public interface TaskDao {
 
-	Task findById(Long id);
+	Task findById(int id);
 
 	Task findByTitle(String title);
 	
@@ -14,5 +14,5 @@ public interface TaskDao {
 	
 	List<Task> findAll();
 
-	void setTitle(long id, String title);
+	void setTitle(int id, String title);
 }

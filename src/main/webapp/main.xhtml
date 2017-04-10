@@ -37,22 +37,25 @@
 
 <!-- 
 							<p:outputLabel for="tasksList" value="Task List" />
--->
 							<p:selectOneListbox id="tasksList" value="#{selectOneView.task}"
 								converter="taskConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20"
-								update="title description dueDate" onclick="alert(value)">
-
-								<f:selectItems value="#{selectOneView.tasks}" var="task"
-									itemLabel="#{task.title}" itemValue="#{task}" 
-									actionListener="#{selectOneView.task}" 
-									onclick="alert(value)"/>
-
-<!-- 
-								<p:ajax update=":formId:cityField"
-								            listener="#{addAddressesMB.provinceChangeHandler}" />									
+								onclick="alert(this.value)">
+							<p:selectOneListbox id="tasksList" value="#{taskBean.task}"
+								converter="taskConverter" var="t" filter="true"
+								filterMatchMode="contains" class="margin-top20"
+								onclick="alert(this.value)">
+								
 -->
+							<p:selectOneListbox id="tasksList" value="#{taskBean.task}"
+								converter="selectOneMenuConverter" var="t" filter="true"
+								filterMatchMode="contains" class="margin-top20"
+								onclick="alert(this.value)">
 
+								<f:selectItems value="#{taskBean.tasks}" var="task"
+									itemLabel="#{task.title}" itemValue="#{task}"/>
+
+								<p:ajax update=":formMain:title"/>
 <!-- 
 								<p:column>
 									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" />
@@ -60,7 +63,7 @@
 -->
 
 								<p:column>
-									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}" />
+									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}"/>
 								</p:column>
 
 							</p:selectOneListbox>
@@ -72,11 +75,9 @@
 <!-- 
 			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
 -->
-			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom"/>
+			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom blueGradient"/>
 						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
-						            <h:outputText value="Task:" />
-						            <h:outputText value="#{selectOneView.task.toString()}" />
 						        </p:panelGrid>
 						    </p:dialog>
 
@@ -98,7 +99,7 @@
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
 
-        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
+        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom blueGradient"/>
 							    <p:dialog header="Delete Task" modal="true" showEffect="fade" widgetVar="dlgDeleteTask" resizable="false">
 							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
 							        </p:panelGrid>

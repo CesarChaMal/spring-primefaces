@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Task {
 
-	private Long id;
+	private int id;
 	private String title;
 	private String description;
 	private Date due_date;
 
-	public Task(Long id, String title, String description, Date due_date) {
+	public Task(int id, String title, String description, Date due_date) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -20,11 +20,11 @@ public class Task {
 	public Task() {
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

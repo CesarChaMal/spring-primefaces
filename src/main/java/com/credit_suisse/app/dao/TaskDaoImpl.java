@@ -35,7 +35,7 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 	@Override
-	public Task findById(Long id) {
+	public Task findById(int id) {
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         
@@ -89,7 +89,7 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 	@Override
-	public void setTitle(long id, String title) {
+	public void setTitle(int id, String title) {
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         params.put("title", title);
@@ -109,7 +109,7 @@ public class TaskDaoImpl implements TaskDao {
 
 		public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Task task = new Task();
-			task.setId(rs.getLong("id"));
+			task.setId(rs.getInt("id"));
 			task.setTitle(rs.getString("title"));
 			task.setDescription(rs.getString("description"));
 			task.setDueDate(rs.getDate("due_date"));
