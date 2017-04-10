@@ -90,19 +90,21 @@
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
 									
 									<p:outputLabel for="newTitle" value="Task title"/>
-									<p:inputText id="newTitle"></p:inputText>
+									<p:inputText id="newTitle" value="#{task.title}" ></p:inputText>
 
 									<p:outputLabel for="newDescription" value="Task description"/>
-								    <p:inputTextarea id="newDescription" rows="10" cols="50" counter="newDisplayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false">
+								    <p:inputTextarea id="newDescription" value="#{task.description}" rows="10" cols="50" counter="newDisplayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false">
 								    	<h:outputText id="newDisplayTextArea" style="float:right;"/>
 								    </p:inputTextarea>
 
 									<p:outputLabel for="newDueDate" value="Due date"/>
-	        						<p:calendar id="newDueDate"/>
+	        						<p:calendar value="#{task.dueDate}" id="newDueDate"/>
 
-
-	        				    	<p:commandButton value="Save" update="@([id$=tasksList])"/>
-	        				    	<p:commandButton value="Cancel"/>
+									<p:growl id="saveMessage" showDetail="true"/>
+	        				    	<p:commandButton process="@this" value="Save" actionListener="#{main.save(task.title, task.description, task.dueDate)}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+										<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
+									</p:commandButton>
+	        				    	<p:commandButton value="Cancel" onclick="dlg.hide()"/>
 <!-- 
 	        				    	<p:commandButton value="Save">
 	        				    		<p:ajax listener="#{main.tasks}" update="@([id$=tasksList])"/>
@@ -144,8 +146,8 @@
 -->
         						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
 
-								<p:growl id="message" showDetail="true"/>
-        				    	<p:commandButton process="@this" value="Delete task" actionListener="#{main.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+								<p:growl id="deleteMessage" showDetail="true"/>
+        				    	<p:commandButton process="@this" value="Delete task" actionListener="#{main.delete}" update="@([id$=deleteMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 									<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
 

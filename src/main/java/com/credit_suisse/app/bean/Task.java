@@ -3,8 +3,17 @@ package com.credit_suisse.app.bean;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
-@ManagedBean(name="task")
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@ManagedBean(name="task", eager = true)
+@RequestScoped
+//@ManagedBean(name="task")
 public class Task {
 
 	private int id;
