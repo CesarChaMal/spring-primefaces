@@ -30,36 +30,29 @@
 				</p:dataTable>
 -->
 
-				<p:layout>
-					<p:layoutUnit id="leftPanel" position="west">
+				<p:layout style="min-width:800px;min-height:700px;">
+					<p:layoutUnit id="leftPanel" position="west" resizable="true" size="100" minSize="40" maxSize="200">
 
 						<p:panel header="Task List" class="max-width">
 
 <!-- 
 							<p:outputLabel for="tasksList" value="Task List" />
+-->
 							<p:selectOneListbox id="tasksList" value="#{selectOneView.task}"
 								converter="taskConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20"
-								onclick="alert(this.value)">
-							<p:selectOneListbox id="tasksList" value="#{taskBean.task}"
-								converter="taskConverter" var="t" filter="true"
-								filterMatchMode="contains" class="margin-top20"
-								onclick="alert(this.value)">
-								
+								update="title description dueDate" onclick="alert(value)">
+
+								<f:selectItems value="#{selectOneView.tasks}" var="task"
+									itemLabel="#{task.title}" itemValue="#{task}" 
+									actionListener="#{selectOneView.task}" 
+									onclick="alert(value)"/>
+
+<!-- 
+								<p:ajax update=":formId:cityField"
+								            listener="#{addAddressesMB.provinceChangeHandler}" />									
 -->
-							
-							<p:selectOneMenu id="utilSelector" value="#{taskBean.task}" converter="selectOneMenuConverter">
-							    <f:selectItem itemValue="#{null}" noSelectionOption="true" />
-							    <f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
-								<p:ajax update="title"/>
-							</p:selectOneMenu>
 
-							<p:selectOneListbox id="tasksList" value="#{taskBean.task}" converter="selectOneMenuConverter" var="t" filter="true"
-								filterMatchMode="contains" class="margin-top20">
-
-								<f:selectItems value="#{taskBean.tasks}" var="task" itemLabel="#{task.title}" itemValue="#{task}"/>
-
-								<p:ajax update="title"/>
 <!-- 
 								<p:column>
 									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" />
@@ -67,7 +60,7 @@
 -->
 
 								<p:column>
-									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}"/>
+									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}" />
 								</p:column>
 
 							</p:selectOneListbox>
@@ -79,22 +72,28 @@
 <!-- 
 			    			<p:commandButton value="Add task" update="display" oncomplete="PF('dlgAddTask').show()" icon="ui-icon-check" />
 -->
-			    			<p:commandButton value="Add task" update="displayAddTask" oncomplete="PF('dlgAddTask').show()" class="margin-top20 max-width bottom blueGradient"/>
+			    			<p:commandButton value="Add task" update="displayDeleteTask" oncomplete="PF('dlg1').show()" class="margin-top20 max-width bottom"/>
+			    			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+ 								   <h:outputText value="Resistance to PrimeFaces is futile!" />
+							</p:dialog>
+ 
 						    <p:dialog header="Add Task" modal="true" showEffect="fade" widgetVar="dlgAddTask" resizable="false">
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
+						            <h:outputText value="Task:" />
+						            <h:outputText value="#{selectOneView.task.toString()}" />
 						        </p:panelGrid>
 						    </p:dialog>
 
 						</p:panel>
-					</p:layoutUnit>
-
-					<p:layoutUnit id="rightPanel" position="center">
+ </p:layoutUnit>
+ 
+    <p:layoutUnit position="center">
 
 						<p:panel header="Task Details" class="max-width">
 
 							<h:panelGrid id="campos" columns="1" class="max-width">
 								<p:outputLabel for="title" value="Task title" class="margin-top20"/>
-								<p:inputText id="title" value="#{taskBean.task.title}" onblur="value=value.toUpperCase()" class="max-width"></p:inputText>
+								<p:inputText id="title" value="#{task.title}" onblur="value=value.toUpperCase()" class="max-width"></p:inputText>
 
 								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
 							    <p:inputTextarea id="description" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
@@ -103,8 +102,8 @@
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
         						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
 
-        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom blueGradient"/>
-							    <p:dialog header="Delete Task" modal="true" showEffect="fade" widgetVar="dlgDeleteTask" resizable="false">
+        				    	<p:commandButton value="Delete task" update="displayDeleteTask" oncomplete="PF('dlgDeleteTask').show()" class="margin-top20 max-width bottom"/>
+							    <p:dialog header="Delete Task" modal="true" widgetVar="dlgDeleteTask" resizable="false">
 							        <p:panelGrid columns="2" id="displayDeleteTask" columnClasses="label,output">
 							        </p:panelGrid>
 							    </p:dialog>
