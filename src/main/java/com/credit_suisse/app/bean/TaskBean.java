@@ -59,6 +59,12 @@ public class TaskBean {
 		this.task = task;
 	}
 
+	public void reset() {
+		this.task = null;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("formMain");
+    }
+	
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -80,6 +86,7 @@ public class TaskBean {
 		taskDao.deleteById(id);
         addMessage("Deleted", "Task Deleted with id " + id);
         this.refresh();
+        this.reset();
     }
      
     public void refresh() {

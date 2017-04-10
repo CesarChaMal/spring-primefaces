@@ -38,7 +38,7 @@
 					<p:layoutUnit id="leftPanel" position="west">
 -->
 
-						<p:panel header="Task List" class="max-width">
+						<p:panel id="panel" header="Task List" class="max-width">
 
 <!-- 
 							<p:selectOneMenu id="utilSelector" value="#{taskBean.task}" converter="selectOneMenuConverter">
@@ -143,7 +143,7 @@
         						<p:calendar id="dueDate" value="#{taskBean.task.dueDate}" class="max-width"/>
 
 								<p:growl id="message" showDetail="true"/>
-        				    	<p:commandButton value="Delete task" actionListener="#{taskBean.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+        				    	<p:commandButton process="@this" value="Delete task" actionListener="#{taskBean.delete}" update="@([id$=message]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 									<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
 
