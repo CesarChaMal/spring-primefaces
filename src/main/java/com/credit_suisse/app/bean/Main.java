@@ -1,9 +1,12 @@
 package com.credit_suisse.app.bean;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -47,10 +50,6 @@ public class Main {
 
 	private RequestContext requestContext;
 
-	public void setTaskDao(TaskDao taskDao) {
-		this.taskDao = taskDao;
-	}
-	
     public List<Task> getTasks() {
 		return tasks;
 	}
@@ -77,7 +76,8 @@ public class Main {
 	
 	public void reset() {
 		this.selectedTask = null;
-        RequestContext requestContext = RequestContext.getCurrentInstance();
+		this.task = null;
+        requestContext = RequestContext.getCurrentInstance();
         requestContext.update("formMain");
     }
 	
@@ -97,21 +97,36 @@ public class Main {
         requestContext.execute("PF('dlg').show()");
     }
 	
-    public void save() {
+	public void save() {
        	facesContext = FacesContext.getCurrentInstance();
-    	task = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
-		taskDao.save(task);
-        addMessage("Saved", "Task Saved with title " + task.getTitle());
-        this.refresh();
-        this.task = null;
-    }
-     
-    public void save(String title, String description, Date due_date) {
-    	System.out.println(title);
-    	System.out.println(description);
-    	System.out.println(due_date);
+    	Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+    	String title = params.get("title");    	
+    	String description = params.get("description");    	
+    	String due_dateStr = params.get("due_date");    	
     	
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    	logger.debug("title: " + title);
+    	logger.debug("description: " + description);
+    	logger.debug("due_date: " + due_dateStr);
+
+    	Date due_date = new Date();
+    	
+    	DateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+    	try {
+            due_date = formatter.parse(due_dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    	
+//    	task = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
+//		taskDao.save(task);
+    	taskDao.save(title, description, due_date);
+        addMessage("Saved", "Task Saved with title " + title);
+    	this.refresh();
+    	this.reset();
+    }
+
+	public void save(String title, String description, Date due_date) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.format(due_date);
         System.out.println(due_date);
         
