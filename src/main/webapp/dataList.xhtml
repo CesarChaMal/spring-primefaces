@@ -20,13 +20,17 @@
         <f:facet name="header">
             Paginator
         </f:facet>
-        <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+        <p:commandLink update=":carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
             <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
             <h:outputText value="#{car.brand}, #{car.year}" />
         </p:commandLink>
         <h:outputText value="#{car.brand}, #{car.year}" style="display:inline-block"/>
     </p:dataList>
  
+ </h:form>
+</p:layoutUnit>
+
+<p:layoutUnit position="center">
     <p:dialog header="Car Info" widgetVar="carDialog" modal="false" showEffect="blind" hideEffect="explode" resizable="false">
         <p:outputPanel id="carDetail" style="text-align:center;">
             <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
@@ -48,10 +52,6 @@
             </p:panelGrid>
         </p:outputPanel>
     </p:dialog>
-</h:form>
-</p:layoutUnit>
-
-<p:layoutUnit position="center">
     
 </p:layoutUnit>
 

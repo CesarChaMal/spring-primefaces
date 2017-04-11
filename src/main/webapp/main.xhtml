@@ -144,7 +144,7 @@
 								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
 <!-- 
 -->
-							    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+							    <p:inputTextarea disabled="#{false}" id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
 							    <h:outputText id="displayTextArea" />
 
 								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
