@@ -30,9 +30,9 @@ import com.credit_suisse.app.dao.TaskDao;
 //@ManagedBean
 @ManagedBean(name="main")
 //@ManagedBean(name="main", eager = true)
-//@ApplicationScoped
 @SessionScoped
-public class Main {
+//@ApplicationScoped
+public class Main implements NewTaskBehaviour, SelectOneListboxBehaviour {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
@@ -76,8 +76,14 @@ public class Main {
 	
 	public void reset() {
 		this.selectedTask = null;
+//    	Task taskFaces = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
+//    	taskFaces = null;
 		this.task = null;
+		
         requestContext = RequestContext.getCurrentInstance();
+        requestContext.reset("formMain:panel");
+//        requestContext.reset("formMain:displayAddTask");
+//        requestContext.reset("formMain:newTask");
         requestContext.update("formMain");
     }
 	
@@ -118,7 +124,8 @@ public class Main {
         }
     	
     	taskDao.save(title, description, due_date);
-        addMessage("Saved", "Task Saved with title " + title);
+//        addMessage("Saved", "Task Saved with title " + title);
+        addMessage("", "Task Saved with title " + title);
     	this.refresh();
     	this.reset();
 	}
@@ -167,7 +174,8 @@ public class Main {
     public void delete() {
     	int id = getSelectedTask().getId(); 
     	taskDao.deleteById(id);
-    	addMessage("Deleted", "Task Deleted with id " + id);
+//    	addMessage("Deleted", "Task Deleted with id " + id);
+    	addMessage("", "Task Deleted with id " + id);
     	this.refresh();
     	this.reset();
     }
@@ -188,10 +196,10 @@ public class Main {
     	facesContext = FacesContext.getCurrentInstance();
         requestContext = RequestContext.getCurrentInstance();
    			
-		Task task = new Task();
-		task.setTitle("test task");
-		task.setDescription("test description");
-		task.setDueDate(new Date());
+//		Task task = new Task();
+//		task.setTitle("test task");
+//		task.setDescription("test description");
+//		task.setDueDate(new Date());
 		
 //		taskDao.save(task);
 //		taskDao.save("test task 2", "description", new Date());

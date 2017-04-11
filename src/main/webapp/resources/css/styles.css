@@ -31,75 +31,66 @@ a {
 }
 */
 
-#j_idt13\3A display td {
-	color: #000!important;
-}
-
 #formMain\3A tasksList {
 	/* width: 700px!important; */
 	width: 100%!important;
+	height: 250px!important;
 }
 
 .ui-selectlistbox-listcontainer {
-	/* 
-	width: 700px!important;
-	height: 400px!important;
-	*/
-
-	/* 
 	width: 100%!important;
-	height: 450px!important;
-	*/
 }
 
-.ui-layout-unit-content .ui-widget-content {
+.ui-widget-content {
 	/* 
 	border: 1px solid black;	
 	*/
-	border: 0px!important;	
+	border: none!important;	
 }
 
-#formMain\3A j_idt21 {
-	margin-top: 10px;
-	width:100%;
+.ui-layout-unit-content {
+	border: none!important;	
+	height: 250px;
 }
 
-#formMain\3A j_idt25_content input {
-	/* 
-	margin: 10px;
-	*/
+/* 
+#formMain\3A leftPanel {
+	height: 250px;
+}
+*/
+
+/* 
+#formMain\3A rightPanel {
+	height: 250px;
+}
+*/
+
+.max-width, #formMain\3A dueDate_input, #formMain\3A newDueDate_input{
 	width: 100%;
 }
 
-.max-width {
-	width: 100%;
+.width-medium {
+	width: 50%;
+}
+
+.width-small {
+	width: 100px;
 }
 
 .margin-top20 {
 	margin-top: 20px;
 }
 
-.bottom {
+.bottom-left {
 	position: fixed;
 	left: 0px;
 	bottom: 0px;
-	display: inline;
 }
 
-#formMain\3A leftPanel {
-	height: 300px;
-}
-
-#formMain\3A rightPanel {
-	height: 300px;
-}
-
-.ui-widget-header {
-    background: #E5EAF8 -moz-linear-gradient(center top , rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) repeat scroll 0 0!important;
-    border: 1px solid #a8a8a8;
-    color: #333;
-    font-weight: bold;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+.bottom-right {
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
 }
 
 /*
@@ -112,21 +103,30 @@ a {
 }
 */
 
-/*
-.ui-widget-header, #formMain\3A j_idt21 , #formMain\3A j_idt29 {
+.ui-widget-header, .blueGradient {
+	/* standard */
+    background: #E5EAF8 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0))!important;
+
+	/* chrome */
+    background: #E5EAF8 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)))!important;
+
+	/* opera */
+    background: #E5EAF8 -o-linear-gradient(center top , rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) repeat scroll 0 0!important;
+
+	/* firefox */
     background: #E5EAF8 -moz-linear-gradient(center top , rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) repeat scroll 0 0!important;
+
     border: 1px solid #a8a8a8;
     color: #333;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
-*/
 
-.ui-widget-header, .blueGradient {
-    background: #E5EAF8 -moz-linear-gradient(center top , rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) repeat scroll 0 0!important;
-    border: 1px solid #a8a8a8;
-    color: #333;
-    font-weight: bold;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+#formMain\3A displayAddTask table, #formMain\3A displayAddTask .ui-panelgrid-cell {
+	border: none!important;
+}
+
+#formMain\3A displayAddTask label {
+	color: #000;
 }
 

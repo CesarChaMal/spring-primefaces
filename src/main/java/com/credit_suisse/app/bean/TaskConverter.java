@@ -1,10 +1,6 @@
 package com.credit_suisse.app.bean;
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -12,7 +8,6 @@ import javax.faces.convert.FacesConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
  
 @FacesConverter("taskConverter")
 public class TaskConverter implements Converter {
