@@ -91,17 +91,23 @@
 						        <p:panelGrid columns="2" id="displayAddTask" columnClasses="label,output">
 									
 									<p:outputLabel for="newTitle" value="Task title"/>
-									<p:inputText id="newTitle" value="#{task.title}" ></p:inputText>
+									<p:inputText id="newTitle" value="#{task.title}" required="true"></p:inputText>
+            						<p:message for="newTitle" />
+            						<h:outputText value="#{task.title}"/>
 
 									<p:outputLabel for="newDescription" value="Task description"/>
-								    <p:inputTextarea id="newDescription" value="#{task.description}" rows="10" cols="50" counter="newDisplayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false">
+								    <p:inputTextarea id="newDescription" value="#{task.description}" rows="10" cols="50" counter="newDisplayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" required="true">
 								    	<h:outputText id="newDisplayTextArea" style="float:right;"/>
 								    </p:inputTextarea>
+            						<p:message for="newDescription" />
+            						<h:outputText value="#{task.description}"/>
 
 									<p:outputLabel for="newDueDate" value="Due date"/>
-	        						<p:calendar value="#{task.dueDate}" id="newDueDate"/>
+	        						<p:calendar value="#{task.dueDate}" id="newDueDate" required="true"/>
+            						<p:message for="newDueDate" />
+            						<h:outputText value="{task.dueDate}"/>
 
-	        				    	<p:commandButton process="@this" value="Save" action="#{main.save}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
+	        				    	<p:commandButton process="@this" value="Save" action="#{main.save}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient" validateClient="true">
 										<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
 										<p:growl id="saveMessage" showDetail="true"/>
 									</p:commandButton>
@@ -139,22 +145,37 @@
 <!-- 
 								<p:inputText id="title" class="max-width"></p:inputText>
 -->
-								<c:if test="#{main.selectedTask != null}">
-									<p:inputText id="title" value="#{main.selectedTask.title}" class="max-width"></p:inputText>
+								<c:choose>
+									<c:when test="#{main.selectedTask != null}">
+										<p:inputText id="title" value="#{main.selectedTask.title}" class="max-width"></p:inputText>
+									</c:when>
+									<c:otherwise>
+										<p:inputText id="title" class="max-width"></p:inputText>
+									</c:otherwise>
+								</c:choose>
 
-									<p:outputLabel for="description" value="Task description" class="margin-top20"/>
+								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
+								<c:choose>
+									<c:when test="#{main.selectedTask != null}">
+									    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+									</c:when>
+									<c:otherwise>
+									    <p:inputTextarea id="description" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+									</c:otherwise>
+								</c:choose>
 <!-- 
 -->
-								    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
-								    <h:outputText id="displayTextArea" />
+							    <h:outputText id="displayTextArea" />
 
-									<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
-<!-- 
-	        						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
-	        						<p:calendar id="dueDate" class="max-width"/>
--->
-	        						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
-								</c:if> 	
+								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
+								<c:choose>
+									<c:when test="#{main.selectedTask != null}">
+		        						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
+									</c:when>
+									<c:otherwise>
+		        						<p:calendar id="dueDate" class="max-width"/>
+									</c:otherwise>
+								</c:choose>
 
 								<p:growl id="deleteMessage" showDetail="true"/>
         				    	<p:commandButton process="@this" value="Delete task" actionListener="#{main.delete}" update="@([id$=deleteMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
