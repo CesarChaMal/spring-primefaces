@@ -99,9 +99,9 @@ public class Main {
 	public void save() {
        	facesContext = FacesContext.getCurrentInstance();
     	Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-    	String title = params.get("title");    	
-    	String description = params.get("description");    	
-    	String due_dateStr = params.get("due_date");    	
+    	String title = params.get("formMain:newTitle");    	
+    	String description = params.get("formMain:newDescription");    	
+    	String due_dateStr = params.get("formMain:newDueDate_input");    	
     	
     	logger.debug("title: " + title);
     	logger.debug("description: " + description);
@@ -109,13 +109,40 @@ public class Main {
 
     	Date due_date = new Date();
     	
-    	DateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     	try {
             due_date = formatter.parse(due_dateStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     	
+    	taskDao.save(title, description, due_date);
+        addMessage("Saved", "Task Saved with title " + title);
+    	this.refresh();
+    	this.reset();
+	}
+    	
+/*	
+	public void save2() {
+		facesContext = FacesContext.getCurrentInstance();
+		Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+		String title = params.get("title");    	
+		String description = params.get("description");    	
+		String due_dateStr = params.get("due_date");    	
+		
+		logger.debug("title: " + title);
+		logger.debug("description: " + description);
+		logger.debug("due_date: " + due_dateStr);
+		
+		Date due_date = new Date();
+		
+		DateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+		try {
+			due_date = formatter.parse(due_dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    		
 //    	task = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
 //		taskDao.save(task);
     	taskDao.save(title, description, due_date);
@@ -124,15 +151,16 @@ public class Main {
     	this.reset();
     }
 
+*/	
 	public void save(String title, String description, Date due_date) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        format.format(due_date);
-        System.out.println(due_date);
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        formatter.format(due_date);
+        logger.debug("due_date:" + due_date);
         
     	taskDao.save(title, description, due_date);
     	addMessage("Saved", "Task Saved with title " + task.getTitle());
     	this.refresh();
-    	this.task = null;
+    	this.reset();
     }
     
     public void delete() {
@@ -164,9 +192,9 @@ public class Main {
 		task.setDescription("test description");
 		task.setDueDate(new Date());
 		
-		taskDao.save(task);
-		taskDao.save("test task 2", "description", new Date());
-		taskDao.save("test task 2", "description2", new Date());
+//		taskDao.save(task);
+//		taskDao.save("test task 2", "description", new Date());
+//		taskDao.save("test task 2", "description2", new Date());
 		
 //		Task foundTask = taskDao.findById(1);
 //		taskDao.delete(foundTask);
