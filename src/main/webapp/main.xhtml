@@ -19,25 +19,31 @@
 							<p:selectOneListbox id="tasksList" value="#{main.selectedTask}"
 								converter="selectOneMenuConverter" var="t" filter="true"
 								filterMatchMode="contains" class="margin-top20">
-								<f:selectItems value="#{main.tasks}" var="task"
-									itemLabel="#{task.title}" itemValue="#{task}" />
-								<p:ajax
-									update="@([id$=title]) @([id$=description]) @([id$=dueDate])" />
+								
+								<f:selectItems value="#{main.tasks}" var="task"	itemLabel="#{task.title}" itemValue="#{task}" />
+								
+								
+								<p:commandLink id="ajax" update="growl" actionListener="#{buttonView.buttonAction}">
+        <f:setPropertyActionListener value="#{task}" target="#{main.selectedTask}" />
+    </p:commandLink>
+								
 								<p:column>
-									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}"
-										value="#{t.title}" />
+									<h:outputText styleClass="ui-theme ui-theme-task#{t.id}" value="#{t.title}" />
 								</p:column>
 							</p:selectOneListbox>
 							<p:commandButton value="Add task" update="displayAddTask"
 								onclick="PF('dlgAddTask').show()"
-								class="margin-top20 max-width bottom blueGradient" />
+								class="margin-top20 max-width bottom blueGradient" >
+							<f:setPropertyActionListener value="#{null}" target="#{task}" />
+							</p:commandButton>
 							<ui:remove>
 							</ui:remove>
+						
 						</p:panel>
+						
 					</p:layoutUnit>
 					<p:layoutUnit id="rightPanel" position="center">
-						<p:dialog header="Dialog" modal="false" showEffect="fade"
-							widgetVar="dlgAddTask" resizable="false">
+						<p:dialog header="Dialog" modal="false" showEffect="blind" hideEffect="explode" widgetVar="dlgAddTask" resizable="false">
 							<p:panelGrid columns="2" id="displayAddTask"
 								columnClasses="label,output">
 
@@ -69,6 +75,7 @@
 						</p:dialog>
 
 						<p:panel header="Task Details" class="max-width">
+			<c:if test="#{main.selectedTask != null}">
 							<h:panelGrid id="details" columns="1" class="max-width">
 								<p:outputLabel for="title" value="Task title"
 									class="margin-top20" />
@@ -105,6 +112,7 @@
 								</p:confirmDialog>
 
 							</h:panelGrid>
+            </c:if> 
 
 						</p:panel>
 
