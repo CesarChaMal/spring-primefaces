@@ -100,13 +100,16 @@
 									<p:outputLabel for="newDueDate" value="Due date"/>
 	        						<p:calendar value="#{task.dueDate}" id="newDueDate"/>
 
-									<p:growl id="saveMessage" showDetail="true"/>
 	        				    	<p:commandButton process="@this" value="Save" action="#{main.save}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 										<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
+										<p:growl id="saveMessage" showDetail="true"/>
 									</p:commandButton>
 	        				    	<p:commandButton value="Cancel" onclick="dlg.hide()"/>
+
 						        </p:panelGrid>
 						    </p:dialog>
+
+						    <ui:remove>
 <!-- 
 	        				    	<p:commandButton process="@this" value="Save2" action="#{main.save2}" update="@([id$=saveMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">
 										<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
@@ -115,6 +118,7 @@
 										<f:param name="due_date" value="#{task.dueDate}" />
 									</p:commandButton>
 -->
+							</ui:remove>
 
 						</p:panel>
 
