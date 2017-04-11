@@ -14,12 +14,12 @@ public class SelectOneView {
     private Task task; 
     private List<Task> tasks;
      
-    @ManagedProperty("#{taskBean}")
-    private TaskBean service;
+//    @ManagedProperty("#{taskBean}")
+//    //private TaskBean service;
      
     @PostConstruct
     public void init() {
-        tasks = service.getTasks();
+     //   tasks = service.getTasks();
     }
  
     public String getOption() {
@@ -42,7 +42,7 @@ public class SelectOneView {
         return tasks;
     }
  
-    public void setService(TaskBean service) {
-        this.service = service;
-    }
+//    public void setService(TaskBean service) {
+//        this.service = service;
+//    }
 }

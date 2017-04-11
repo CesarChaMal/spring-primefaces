@@ -1,8 +1,9 @@
 package com.credit_suisse.app.dao;
 
+import java.util.Date;
 import java.util.List;
 
-import com.credit_suisse.app.domain.Task;
+import com.credit_suisse.app.bean.Task;
 
 public interface TaskDao {
 
@@ -14,5 +15,15 @@ public interface TaskDao {
 	
 	List<Task> findAll();
 
-	void setTitle(int id, String title);
+	void updateTitle(int id, String title);
+
+	void save(Task task);
+	
+	void save(String title, String description, Date due_date);
+
+	void delete(Task task);
+	
+	void deleteById(int id);
+	
+	void deleteByTitle(String title);
 }

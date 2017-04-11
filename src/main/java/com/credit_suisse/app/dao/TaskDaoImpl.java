@@ -2,6 +2,7 @@ package com.credit_suisse.app.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.credit_suisse.app.domain.Task;
+import com.credit_suisse.app.bean.Task;
 
 @Service
 public class TaskDaoImpl implements TaskDao {
@@ -89,7 +90,7 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 	@Override
-	public void setTitle(int id, String title) {
+	public void updateTitle(int id, String title) {
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         params.put("title", title);
@@ -105,6 +106,95 @@ public class TaskDaoImpl implements TaskDao {
         }	
 	}
 
+	@Override
+	public void save(Task task) {
+		String title = task.getTitle();
+		String description = task.getDescription();
+		Date due_date = task.getDueDate();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("title", title);
+		params.put("description", description);
+		params.put("due_date", due_date);
+		
+		String sql = "INSERT INTO TASK (title, description, due_date) VALUES (:title, :description, :due_date)";
+		
+		int status = namedParameterJdbcTemplate.update(sql, params);	
+		
+		if(status != 0){
+			logger.info("Task was inserted with title: "+ params.get("title"));
+		} else {
+			logger.debug("Task not inserted");
+		}	
+	}
+	
+	@Override
+	public void save(String title, String description, Date due_date) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("title", title);
+		params.put("description", description);
+		params.put("due_date", due_date);
+		
+		String sql = "INSERT INTO TASK (title, description, due_date) VALUES (:title, :description, :due_date)";
+		
+		int status = namedParameterJdbcTemplate.update(sql, params);	
+		
+		if(status != 0){
+			logger.info("Task was inserted with title: "+ params.get("title"));
+		} else {
+			logger.debug("Task not inserted");
+		}	
+	}
+	
+	@Override
+	public void delete(Task task) {
+		int id = task.getId();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		
+		String sql = "DELETE FROM TASK WHERE id=:id";
+		
+		int status = namedParameterJdbcTemplate.update(sql, params);	
+		
+		if(status != 0){
+			logger.info("Task was deleted with id: "+ params.get("id"));
+		} else {
+			logger.debug("Task not deleted");
+		}	
+	}
+	
+	@Override
+	public void deleteById(int id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		
+		String sql = "DELETE FROM TASK WHERE id=:id";
+		
+		int status = namedParameterJdbcTemplate.update(sql, params);	
+		
+		if(status != 0){
+			logger.info("Task was deleted with id: "+ params.get("id"));
+		} else {
+			logger.debug("Task not deleted");
+		}	
+	}
+	
+	@Override
+	public void deleteByTitle(String title) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("title", title);
+		
+		String sql = "DELETE FROM TASK WHERE title=:title";
+		
+		int status = namedParameterJdbcTemplate.update(sql, params);	
+		
+		if(status != 0){
+			logger.info("Task was deleted with title: "+ params.get("title"));
+		} else {
+			logger.debug("Task not deleted");
+		}	
+	}
+	
 	private static final class TaskMapper implements RowMapper<Task> {
 
 		public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
