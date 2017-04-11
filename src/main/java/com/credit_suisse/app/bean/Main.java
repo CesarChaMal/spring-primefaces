@@ -30,7 +30,8 @@ import com.credit_suisse.app.dao.TaskDao;
 //@ManagedBean
 @ManagedBean(name="main")
 //@ManagedBean(name="main", eager = true)
-@ApplicationScoped
+//@ApplicationScoped
+@SessionScoped
 public class Main {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);

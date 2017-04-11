@@ -3,6 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
@@ -138,20 +139,22 @@
 <!-- 
 								<p:inputText id="title" class="max-width"></p:inputText>
 -->
-								<p:inputText id="title" value="#{main.selectedTask.title}" class="max-width"></p:inputText>
+								<c:if test="#{main.selectedTask != null}">
+									<p:inputText id="title" value="#{main.selectedTask.title}" class="max-width"></p:inputText>
 
-								<p:outputLabel for="description" value="Task description" class="margin-top20"/>
+									<p:outputLabel for="description" value="Task description" class="margin-top20"/>
 <!-- 
 -->
-							    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
-							    <h:outputText id="displayTextArea" />
+								    <p:inputTextarea id="description" value="#{main.selectedTask.description}" rows="10" cols="50" counter="displayTextArea" maxlength="256" counterTemplate="{0} characters remaining." autoResize="false" class="max-width"/>
+								    <h:outputText id="displayTextArea" />
 
-								<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
+									<p:outputLabel for="dueDate" value="Due date" class="margin-top20"/>
 <!-- 
-        						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
-        						<p:calendar id="dueDate" class="max-width"/>
+	        						<p:calendar id="dueDate" value="#{calendarView.date2}" class="max-width"/>
+	        						<p:calendar id="dueDate" class="max-width"/>
 -->
-        						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
+	        						<p:calendar id="dueDate" value="#{main.selectedTask.dueDate}" class="max-width"/>
+								</c:if> 	
 
 								<p:growl id="deleteMessage" showDetail="true"/>
         				    	<p:commandButton process="@this" value="Delete task" actionListener="#{main.delete}" update="@([id$=deleteMessage]) @([id$=tasksList])" class="margin-top20 max-width bottom blueGradient">

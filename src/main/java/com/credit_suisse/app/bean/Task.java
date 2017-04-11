@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name="task")
 //@ManagedBean(name="task", eager = true)
-@ApplicationScoped
+//@ApplicationScoped
+@SessionScoped
 public class Task {
 
 	private int id;
