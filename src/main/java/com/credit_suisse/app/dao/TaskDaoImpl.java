@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.credit_suisse.app.bean.domain.Task;
 
-@Service
+@Repository
 public class TaskDaoImpl implements TaskDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(TaskDaoImpl.class);

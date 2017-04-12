@@ -30,7 +30,7 @@ public class TaskBean implements ManageBeans  {
 	private Date due_date;
 	private Task task;
 	
-//	@Autowired
+	@Autowired
 	private TaskDao taskDao;
 
 	private FacesContext facesContext;
@@ -121,7 +121,7 @@ public class TaskBean implements ManageBeans  {
     	this.reset();
 	}
 
-//    @PostConstruct
+    @PostConstruct
     public void setup()  {
     	facesContext = FacesContext.getCurrentInstance();
         requestContext = RequestContext.getCurrentInstance();
