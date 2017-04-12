@@ -4,15 +4,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -21,28 +20,26 @@ import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import com.credit_suisse.app.bean.domain.Task;
+import com.credit_suisse.app.bean.util.FacesMessagesUtil;
 import com.credit_suisse.app.dao.TaskDao;
 
 @Component
-//@ManagedBean
-@ManagedBean(name="main")
-//@ManagedBean(name="main", eager = true)
+@ManagedBean(eager=true, name="mainBean")
 @SessionScoped
-//@ApplicationScoped
-public class Main implements NewTaskBehaviour, SelectOneListboxBehaviour {
+public class MainBean implements ManageBeans {
 	
-	private static final Logger logger = LoggerFactory.getLogger(Main.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainBean.class);
 
 	@Autowired
-	TaskDao taskDao;
+	private TaskDao taskDao;
 
 	private List<Task> tasks;
 
-	@ManagedProperty("#{task}")
-	private Task task;
+//	@ManagedProperty("#{task}")
+//	private Task task;
 	
 	private Task selectedTask;
 
@@ -51,39 +48,25 @@ public class Main implements NewTaskBehaviour, SelectOneListboxBehaviour {
 	private RequestContext requestContext;
 
     public List<Task> getTasks() {
-		return tasks;
+		return Collections.unmodifiableList(tasks);
 	}
 
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
-	}
-
+//    public void setTasks(List<Task> tasks) {
+//    	this.tasks = tasks;
+//    }
+    
 	public Task getSelectedTask() {
 		return selectedTask;
 	}
 
-	public void setSelectedTask(Task task) {
-		this.selectedTask = task;
+	public void setSelectedTask(Task selectedTask) {
+		this.selectedTask = selectedTask;
 	}
 
-	public Task getTask() {
-		return task;
-	}
-	
-	public void setTask(Task task) {
-		this.task = task;
-	}
-	
 	public void reset() {
 		this.selectedTask = null;
-//    	Task taskFaces = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
-//    	taskFaces = null;
-		this.task = null;
-		
         requestContext = RequestContext.getCurrentInstance();
         requestContext.reset("formMain:panel");
-//        requestContext.reset("formMain:displayAddTask");
-//        requestContext.reset("formMain:newTask");
         requestContext.update("formMain");
     }
 	
@@ -123,71 +106,30 @@ public class Main implements NewTaskBehaviour, SelectOneListboxBehaviour {
             e.printStackTrace();
         }
     	
-    	taskDao.save(title, description, due_date);
-//        addMessage("Saved", "Task Saved with title " + title);
-        addMessage("", "Task Saved with title " + title);
+//    	Task task = new Task();
+//    	task.setTitle(title);
+//    	task.setDescription(description);
+//    	task.setDueDate(due_date);
+    	
+    	taskDao.save(new Task.Builder().setTitle(title).setDescription(description).setDueDate(due_date).build());
+//    	taskDao.save(task);
+    	facesContext = FacesContext.getCurrentInstance();
+    	FacesMessagesUtil.addMessage(facesContext, "Saved", "Task Saved with title " + title);
     	this.refresh();
     	this.reset();
 	}
     	
-/*	
-	public void save2() {
-		facesContext = FacesContext.getCurrentInstance();
-		Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-		String title = params.get("title");    	
-		String description = params.get("description");    	
-		String due_dateStr = params.get("due_date");    	
-		
-		logger.debug("title: " + title);
-		logger.debug("description: " + description);
-		logger.debug("due_date: " + due_dateStr);
-		
-		Date due_date = new Date();
-		
-		DateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
-		try {
-			due_date = formatter.parse(due_dateStr);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-    		
-//    	task = (Task) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{task}", Task.class);
-//		taskDao.save(task);
-    	taskDao.save(title, description, due_date);
-        addMessage("Saved", "Task Saved with title " + title);
-    	this.refresh();
-    	this.reset();
-    }
-
-*/	
-	public void save(String title, String description, Date due_date) {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        formatter.format(due_date);
-        logger.debug("due_date:" + due_date);
-        
-    	taskDao.save(title, description, due_date);
-    	addMessage("Saved", "Task Saved with title " + task.getTitle());
-    	this.refresh();
-    	this.reset();
-    }
-    
     public void delete() {
     	int id = getSelectedTask().getId(); 
     	taskDao.deleteById(id);
-//    	addMessage("Deleted", "Task Deleted with id " + id);
-    	addMessage("", "Task Deleted with id " + id);
+    	facesContext = FacesContext.getCurrentInstance();
+    	FacesMessagesUtil.addMessage(facesContext, "Deleted", "Task Deleted with id " + id);
     	this.refresh();
     	this.reset();
     }
     
     public void refresh() {
 		tasks = taskDao.findAll();
-    }
-    
-    public void addMessage(String summary, String detail) {
-    	facesContext = FacesContext.getCurrentInstance();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        facesContext.addMessage(null, message);
     }
     
     @PostConstruct
@@ -216,4 +158,5 @@ public class Main implements NewTaskBehaviour, SelectOneListboxBehaviour {
 		tasks = taskDao.findAll();
 		logger.debug(Arrays.toString(tasks.toArray()));
    }
+    
 }

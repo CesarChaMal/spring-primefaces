@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.credit_suisse.app.bean.Task;
+import com.credit_suisse.app.bean.domain.Task;
 
 @Service
 public class TaskDaoImpl implements TaskDao {
@@ -129,24 +129,6 @@ public class TaskDaoImpl implements TaskDao {
 	}
 	
 	@Override
-	public void save(String title, String description, Date due_date) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("title", title);
-		params.put("description", description);
-		params.put("due_date", due_date);
-		
-		String sql = "INSERT INTO TASK (title, description, due_date) VALUES (:title, :description, :due_date)";
-		
-		int status = namedParameterJdbcTemplate.update(sql, params);	
-		
-		if(status != 0){
-			logger.info("Task was inserted with title: "+ params.get("title"));
-		} else {
-			logger.debug("Task not inserted");
-		}	
-	}
-	
-	@Override
 	public void delete(Task task) {
 		int id = task.getId();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -198,11 +180,18 @@ public class TaskDaoImpl implements TaskDao {
 	private static final class TaskMapper implements RowMapper<Task> {
 
 		public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Task task = new Task();
-			task.setId(rs.getInt("id"));
-			task.setTitle(rs.getString("title"));
-			task.setDescription(rs.getString("description"));
-			task.setDueDate(rs.getDate("due_date"));
+			
+//			Task task = new Task();
+//			task.setId(rs.getInt("id"));
+//			task.setTitle(rs.getString("title"));
+//			task.setDescription(rs.getString("description"));
+//			task.setDueDate(rs.getDate("due_date"));
+			
+			Task task = new Task.Builder()
+					.setId(rs.getInt("id"))
+					.setTitle(rs.getString("title"))
+					.setDescription(rs.getString("description"))
+					.setDueDate(rs.getDate("due_date")).build();
 			return task;
 		}
 	}

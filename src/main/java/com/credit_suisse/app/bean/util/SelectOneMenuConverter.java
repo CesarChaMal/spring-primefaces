@@ -1,4 +1,4 @@
-package com.credit_suisse.app.bean;
+package com.credit_suisse.app.bean.util;
 
 import java.util.List;
 

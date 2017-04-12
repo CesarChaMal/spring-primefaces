@@ -34,7 +34,11 @@ a {
 #formMain\3A tasksList {
 	/* width: 700px!important; */
 	width: 100%!important;
-	height: 250px!important;
+	height: 360px!important;
+}
+
+.ui-selectlistbox-item span {
+	margin-left: 5px;
 }
 
 .ui-selectlistbox-listcontainer {
@@ -129,4 +133,5 @@ a {
 #formMain\3A displayAddTask label {
 	color: #000;
 }
+
 

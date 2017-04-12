@@ -21,6 +21,8 @@
 		<dbcp.version>2.1</dbcp.version>
 		<jsf.version>2.2.12</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
+		<mockito.version>1.10.19</mockito.version>
+		<bootstrap-webjars.version>3.3.5</bootstrap-webjars.version>
 	</properties>
 
 	<dependencies>
@@ -155,8 +157,24 @@
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>bootstrap</artifactId>
-		    <version>3.3.5</version>
+		    <version>${bootstrap-webjars.version}</version>
 		</dependency>
+
+        <!-- Mockito -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/javax.el/el-api -->
 		<dependency>
