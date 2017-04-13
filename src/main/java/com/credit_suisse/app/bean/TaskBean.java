@@ -38,8 +38,8 @@ public class TaskBean implements ManageBeans  {
 	private RequestContext requestContext;
 
 	public TaskBean() {
-//		task = new Task.Builder().build();
-		task = new Task();
+		task = new Task.Builder().build();
+//		task = new Task();
 	}
 	
 	public int getId() {
