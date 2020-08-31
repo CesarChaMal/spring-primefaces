@@ -1,57 +1,32 @@
 package com.credit_suisse.app.dao;
 
+import com.credit_suisse.app.config.SpringRootConfig;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import static org.junit.Assert.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.junit.Ignore;
-import org.junit.internal.AssumptionViolatedException;
-import org.junit.internal.runners.model.EachTestNotifier;
-import org.junit.internal.runners.model.ReflectiveCallable;
-import org.junit.internal.runners.statements.ExpectException;
-import org.junit.internal.runners.statements.Fail;
-import org.junit.internal.runners.statements.FailOnTimeout;
-import org.junit.runner.Description;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.runners.model.FrameworkMethod;
-import org.junit.runners.model.InitializationError;
-import org.junit.runners.model.Statement;
-import org.springframework.test.annotation.ProfileValueUtils;
-import org.springframework.test.annotation.Repeat;
-import org.springframework.test.annotation.Timed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks;
-import org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks;
-import org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks;
-import org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks;
-import org.springframework.test.context.junit4.statements.SpringFailOnTimeout;
-import org.springframework.test.context.junit4.statements.SpringRepeat;
-import org.springframework.util.ReflectionUtils;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 //@ContextConfiguration(locations = {"file:src/test/**/applicationContext-test.xml"})
-@ContextConfiguration(locations = {"file:src/test/**/applicationContext-test.xml"})
+//@ContextConfiguration(locations = {"file:src/test/**/applicationContext-test.xml"})
+@ContextConfiguration(classes = SpringRootConfig.class)
 public class TaskDaoImplTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(TaskDaoImplTest.class);
+
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Rule
 	public MockitoRule mockitoRule = MockitoJUnit.rule();
