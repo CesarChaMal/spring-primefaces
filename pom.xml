@@ -9,7 +9,7 @@
 
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<spring.version>2.5.6</spring.version>
+		<spring.version>5.2.8.RELEASE</spring.version>
 <!--		<spring.version>4.1.6.RELEASE</spring.version>-->
 <!--		<spring.version>5.0.7.RELEASE</spring.version>-->
 <!--		<spring.version>5.2.8.RELEASE</spring.version>-->
@@ -218,7 +218,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>5.0.0.M2</version>
+			<version>5.2.8.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
