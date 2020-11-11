@@ -75,7 +75,7 @@ public class H2DBTest extends ServerBaseClass {
 //        List<Task> tasksList = namedParameterJdbcTemplate.query(sql, params, new H2DBTest.TaskMapper());
         List<Task> tasksList = this.getJdbcTemplate().query(sql, new H2DBTest.TaskMapper());
         assertNotNull(tasksList);
-        assertEquals(0, tasksList.size());
+        assertEquals(4, tasksList.size());
     }
 
     private static final class TaskMapper implements RowMapper<Task> {
