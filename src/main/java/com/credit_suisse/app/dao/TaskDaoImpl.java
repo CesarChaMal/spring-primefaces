@@ -24,9 +24,9 @@ public class TaskDaoImpl implements TaskDao {
 	private static final Logger logger = LoggerFactory.getLogger(TaskDaoImpl.class);
 
 	@Autowired
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;

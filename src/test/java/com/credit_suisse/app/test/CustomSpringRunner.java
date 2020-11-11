@@ -1,9 +1,9 @@
 package com.credit_suisse.app.test;
 
+import com.credit_suisse.app.bean.util.FileUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
-import com.credit_suisse.app.bean.util.FileUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.dataset.CompositeDataSet;
@@ -16,14 +16,15 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import java.io.File;
 import java.net.MalformedURLException;
 
-public class SpringRunner extends SpringJUnit4ClassRunner {
+public class CustomSpringRunner extends SpringJUnit4ClassRunner {
 
-    private static final Log LOGGER = LogFactory.getLog(SpringRunner.class);
+    private static final Log LOGGER = LogFactory.getLog(CustomSpringRunner.class);
 
-    public SpringRunner(Class<?> clazz) throws InitializationError {
+    public CustomSpringRunner(Class<?> clazz) throws InitializationError {
         super(clazz);
     }
 
@@ -40,18 +41,16 @@ public class SpringRunner extends SpringJUnit4ClassRunner {
         return method.getAnnotation(SpringDataset.class) != null && method.getAnnotation(Ignore.class) == null;
     }
 
-/*
     protected void runChild(FrameworkMethod frameworkMethod, RunNotifier notifier) {
         super.runChild(frameworkMethod, notifier);
     }
-*/
 
     private void setDataSet(ServerBaseClass serverBase, String[] values) {
         Preconditions.checkNotNull(values);
         Preconditions.checkState(values.length > 0);
         try {
             LOGGER.debug("Start preparation of dataset");
-            CompositeDataSet compositeDataSet = getCompositeDataSet(getRtdmsDatasetPath(serverBase), values);
+            CompositeDataSet compositeDataSet = getCompositeDataSet(getDatasetPath(serverBase), values);
             serverBase.setDataSet(compositeDataSet);
         } catch (Exception e) {
             LOGGER.error("DBUNIT SETUP ERROR:\n" + Throwables.getStackTraceAsString(e));
@@ -67,14 +66,14 @@ public class SpringRunner extends SpringJUnit4ClassRunner {
                 FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
                 builder.setColumnSensing(true);
                 listDataSet[i] = builder.build(
-                        new File("./dataset/" + packageName + "/" + values[i] + FileUtil.XML_FILE_EXTENSION)
+                        new File("src/test/resources/dataset/" + packageName + "/" + values[i] + FileUtil.XML_FILE_EXTENSION)
                 );
             }
         }
         return new CompositeDataSet(listDataSet);
     }
 
-    private String getRtdmsDatasetPath(ServerBaseClass serverBase) {
+    private String getDatasetPath(ServerBaseClass serverBase) {
         return serverBase.getClass().getAnnotation(SpringDatasetPath.class) != null ? serverBase.getClass().getAnnotation(SpringDatasetPath.class).value() : "";
     }
 }

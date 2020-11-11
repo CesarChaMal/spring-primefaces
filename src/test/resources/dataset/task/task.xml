@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <T_IRC_TASK id="1" title="task3" description="description of task1" due_date="2017-12-31"/>
-    <T_IRC_TASK id="2" title="task3" description="description of task2" due_date="2017-12-31"/>
-    <T_IRC_TASK id="3" title="task3" description="description of task3" due_date="2017-12-31"/>
-    <T_IRC_TASK id="4" title="task4" description="description of task4" due_date="2017-12-31"/>
+    <TASK id="1" title="task1" description="description of task1" due_date="2017-12-31"/>
+    <TASK id="5" title="task5" description="description of task5" due_date="2017-12-31"/>
+    <TASK id="6" title="task6" description="description of task6" due_date="2017-12-31"/>
+    <TASK id="7" title="task7" description="description of task7" due_date="2017-12-31"/>
 </dataset>

@@ -9,10 +9,11 @@
 
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<spring.version>2.5.6</spring.version>
+<!--		<spring.version>2.5.6</spring.version>-->
+<!--		<spring.version>4.3.25.RELEASE</spring.version>-->
 <!--		<spring.version>4.1.6.RELEASE</spring.version>-->
 <!--		<spring.version>5.0.7.RELEASE</spring.version>-->
-<!--		<spring.version>5.2.8.RELEASE</spring.version>-->
+		<spring.version>5.2.8.RELEASE</spring.version>
 		<hsqldb.version>2.3.2</hsqldb.version>
 		<h2.version>1.4.187</h2.version>
 		<derby.version>10.11.1.1</derby.version>
@@ -21,11 +22,13 @@
 		<jstl.version>1.2</jstl.version>
 		<servletapi.version>3.1.0</servletapi.version>
 		<junit.version>4.12</junit.version>
+		<junit.jupiter.version>5.6.2</junit.jupiter.version>
 		<dbcp.version>2.1</dbcp.version>
 		<jsf.version>2.2.12</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
 		<mockito.version>1.10.19</mockito.version>
 		<bootstrap-webjars.version>3.3.5</bootstrap-webjars.version>
+		<dbunit.version>2.5.3</dbunit.version>
 	</properties>
 
 	<repositories>
@@ -39,12 +42,6 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
@@ -54,6 +51,12 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- Spring Web -->
@@ -82,7 +85,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<!-- HyperSQL DB -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -143,21 +146,25 @@
             <artifactId>jsf-api</artifactId>
             <version>${jsf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>${primefaces.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
         </dependency>
+
         <dependency>
             <groupId>net.bootsfaces</groupId>
             <artifactId>bootsfaces</artifactId>
@@ -171,7 +178,13 @@
 		    <version>${bootstrap-webjars.version}</version>
 		</dependency>
 
-        <!-- Mockito -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+
+		<!-- Mockito -->
 		<dependency>
 		    <groupId>org.mockito</groupId>
 		    <artifactId>mockito-core</artifactId>
@@ -186,7 +199,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.el/el-api -->
 		<dependency>
 		    <groupId>javax.el</groupId>
 		    <artifactId>el-api</artifactId>
@@ -199,26 +211,16 @@
 			<version>19.0.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.10.6</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.6.2</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>5.0.0.M2</version>
+			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -226,7 +228,7 @@
 		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
-			<version>2.5.3</version>
+			<version>${dbunit.version}</version>
 			<scope>test</scope>
 		</dependency>
 

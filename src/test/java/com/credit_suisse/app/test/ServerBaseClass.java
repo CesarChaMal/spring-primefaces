@@ -1,14 +1,13 @@
 package com.credit_suisse.app.test;
 
-import com.credit_suisse.app.config.SpringRootConfig;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -21,8 +20,9 @@ import static org.dbunit.operation.DatabaseOperation.DELETE_ALL;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@RunWith(CustomSpringRunner.class)
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles(profiles = "h2")
 //@ContextConfiguration(classes = SpringRootConfig.class)
 @ContextConfiguration(locations = {"file:src/main/**/applicationContext-test.xml"})
 public abstract class ServerBaseClass {
@@ -36,9 +36,6 @@ public abstract class ServerBaseClass {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-//    @Autowired
-//    private ApplicationContext applicationContext;
-
     private TransactionStatus transaction;
 
     private boolean useTransactions = true;
@@ -46,7 +43,6 @@ public abstract class ServerBaseClass {
     private boolean cleanDatabaseBeforeEachTest = true;
 
     protected ServerBaseClass() {
-
     }
 
     @Resource(name="dataSource")
@@ -113,8 +109,6 @@ public abstract class ServerBaseClass {
         if(cleanDatabaseBeforeEachTest) {
             // Clean stuff that can be in db before test
             JdbcTemplate jdbcTemplate = getJdbcTemplate();
-            jdbcTemplate.update("DELETE from TASK");
-
             if (databaseTester.getDataSet() != null) {
                 try {
                     // Load test data
@@ -123,6 +117,7 @@ public abstract class ServerBaseClass {
                     e.printStackTrace();
                 }
             }
+            jdbcTemplate.update("DELETE from TASK");
         }
     }
 
