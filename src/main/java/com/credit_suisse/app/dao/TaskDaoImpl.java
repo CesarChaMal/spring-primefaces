@@ -2,10 +2,7 @@ package com.credit_suisse.app.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,53 +37,75 @@ public class TaskDaoImpl implements TaskDao {
 	public Task findById(int id) {
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        
-		String sql = "SELECT * FROM TASK WHERE id=:id";
-		
-		Task result = namedParameterJdbcTemplate.queryForObject(
-                    sql,
-                    params,
-                    new TaskMapper());
-                    
-        return result;
+		Task result = null;
+		try {
+			String sql = "SELECT * FROM TASK WHERE id=:id";
+
+			result = namedParameterJdbcTemplate.queryForObject(
+					sql,
+					params,
+					new TaskMapper());
+
+		} catch (Exception e) {
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.valueOf(e));
+			}
+		}
+		return result;
 	}
 
 	
 	@Override
 	public Task findByTitle(String title) {
-		
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("title", title);
-        
-		String sql = "SELECT * FROM TASK WHERE title=:title";
-		
-		Task result = namedParameterJdbcTemplate.queryForObject(sql, params, new TaskMapper());
+		Task result = null;
+
+		try {
+			String sql = "SELECT * FROM TASK WHERE title=:title";
+
+			result = namedParameterJdbcTemplate.queryForObject(sql, params, new TaskMapper());
+		} catch (Exception e) {
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.valueOf(e));
+			}
+		}
         return result;
 	}
 	
 	@Override
 	public List<Task> findByTitleList(String title) {
-		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("title", title);
-		
-		String sql = "SELECT * FROM TASK title=:title";
-		
-//		Task result = namedParameterJdbcTemplate.queryForObject(sql, params, new TaskMapper());
-		List<Task> result = namedParameterJdbcTemplate.query(sql, params, new TaskMapper());
-		
+		params.put("title", title+"%");
+		List<Task> result = new ArrayList<>();
+
+		try {
+			String sql = "SELECT * FROM TASK WHERE title like :title";
+
+//		    result = namedParameterJdbcTemplate.queryForObject(sql, params, new TaskMapper());
+			result = namedParameterJdbcTemplate.query(sql, params, new TaskMapper());
+		} catch (Exception e) {
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.valueOf(e));
+			}
+		}
 		return result.size() == 0 ? null : result;
 	}
 	
 	@Override
 	public List<Task> findAll() {
-		
 		Map<String, Object> params = new HashMap<String, Object>();
-		
-		String sql = "SELECT * FROM TASK";
-		
-        List<Task> result = namedParameterJdbcTemplate.query(sql, params, new TaskMapper());
-        
+		List<Task> result = new ArrayList<>();
+
+		try {
+			String sql = "SELECT * FROM TASK";
+
+			result = namedParameterJdbcTemplate.query(sql, params, new TaskMapper());
+		} catch (Exception e) {
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.valueOf(e));
+			}
+		}
         return result.size() == 0 ? null : result;
 	}
 
@@ -96,7 +115,7 @@ public class TaskDaoImpl implements TaskDao {
         params.put("id", id);
         params.put("title", title);
 
-        String sql = "UPDATE TASK set title=:title where id=:id";
+        String sql = "UPDATE TASK SET title=:title WHERE id=:id";
 
         int status = namedParameterJdbcTemplate.update(sql, params);	
         

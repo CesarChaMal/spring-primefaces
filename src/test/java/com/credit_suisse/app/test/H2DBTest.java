@@ -5,7 +5,6 @@ import com.credit_suisse.app.dao.TaskDao;
 import com.credit_suisse.app.test.rules.UtcTimeZoneRule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,10 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.*;
+
 @SpringDatasetPath("task")
 public class H2DBTest extends ServerBaseClass {
 
-    private static final Log LOGGER = LogFactory.getLog(MethodHandles.lookup().lookupClass().getName());
+    private static final Log logger = LogFactory.getLog(MethodHandles.lookup().lookupClass().getName());
 
     @Rule public UtcTimeZoneRule utcRule = new UtcTimeZoneRule();
     @Rule public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -52,7 +53,7 @@ public class H2DBTest extends ServerBaseClass {
 //        Task task = new Task.Builder().setTitle("title").setDescription("description").setDueDate(new Date()).build();
 //        task = new Task();
         this.prepareMockForImport(task);
-        LOGGER.info(this.taskDao);
+        logger.info(this.taskDao);
     }
 
     void prepareMockForImport(Task task) {
@@ -73,8 +74,8 @@ public class H2DBTest extends ServerBaseClass {
         String sql = "SELECT * FROM TASK";
 //        List<Task> tasksList = namedParameterJdbcTemplate.query(sql, params, new H2DBTest.TaskMapper());
         List<Task> tasksList = this.getJdbcTemplate().query(sql, new H2DBTest.TaskMapper());
-        Assert.assertNotNull(tasksList);
-        Assert.assertEquals(0, tasksList.size());
+        assertNotNull(tasksList);
+        assertEquals(0, tasksList.size());
     }
 
     private static final class TaskMapper implements RowMapper<Task> {

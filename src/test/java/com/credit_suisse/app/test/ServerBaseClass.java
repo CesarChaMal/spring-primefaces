@@ -40,7 +40,8 @@ public abstract class ServerBaseClass {
 
     private boolean useTransactions = true;
 
-    private boolean cleanDatabaseBeforeEachTest = true;
+//    private boolean cleanDatabaseBeforeEachTest = true;
+    private boolean cleanDatabaseBeforeEachTest = false;
 
     protected ServerBaseClass() {
     }
